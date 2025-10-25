@@ -1,0 +1,51 @@
+- hosts: app
+  become: yes
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Install prerequisites
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg
+          - lsb-release
+        state: present
+
+    - name: Add Docker's official GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker repository
+      apt_repository:
+        repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+        state: present
+
+    - name: Install Docker packages
+      apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+        update_cache: yes
+        state: latest
+
+    - name: Ensure docker is started and enabled
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Pull and run Readle app container
+      community.docker.docker_container:
+        name: readle-app
+        image: sakshi2201/readle-app:latest
+        state: started
+        restart_policy: always
+        ports:
+          - "80:80"
