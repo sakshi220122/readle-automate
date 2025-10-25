@@ -1,0 +1,14 @@
+# Ignore Terraform local files
+*.tfstate
+*.tfstate.backup
+.terraform/
+.terraform.lock.hcl
+
+# Ignore private keys
+*.pem
+*.key
+*.pub
+
+# Ignore Python cache, logs, etc.
+__pycache__/
+*.log
