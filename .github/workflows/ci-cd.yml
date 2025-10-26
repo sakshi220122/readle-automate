@@ -37,7 +37,7 @@ jobs:
           username: ubuntu
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/readle-app:latest
-            docker stop readle-app || true
-            docker rm readle-app || true
-            docker run -d --name readle-app -p 80:80 --restart always ${{ secrets.DOCKERHUB_USERNAME }}/readle-app:latest
+           sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/readle-app:latest
+           sudo docker stop readle-app || true
+           sudo docker rm readle-app || true
+           sudo docker run -d --name readle-app -p 80:80 --restart always ${{ secrets.DOCKERHUB_USERNAME }}/readle-app:latest
