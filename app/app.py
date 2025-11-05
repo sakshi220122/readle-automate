@@ -3,7 +3,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello():
-    return "Hello from Sakshi app on AWS!"
+    return "Welcome to Readle – Updated Version"
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=80)
